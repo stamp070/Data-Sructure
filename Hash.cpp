@@ -28,7 +28,7 @@ class HashTable{
 	void add(int key,string value){
 		int index = key%size;
 		if(key<0){
-			cout << "please enter key more than 0!" << endl;
+			cout << "please enter key more than -1!" << endl;
 			return;
 		}
 		
