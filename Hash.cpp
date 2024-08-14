@@ -59,23 +59,19 @@ class HashTable{
 			}
 		}
 	}
-	void search(int key){
+	string search(int key){
 		int index = key%size;
-		if(table[index]->key==key){
-			cout << table[index]->value << endl;
-			return;
-		}else{
-			node *check = table[index];
-			while(check!=NULL){
-				if(check->key==key){
-					cout << check->value << endl;
-					return;
-				}
-				check=check->next;
+		
+		node *check = table[index];
+		while(check!=NULL){
+			if(check->key==key){
+				return check->value;
+				
 			}
-			cout << "-" << endl;
-			return;
+			check=check->next;
 		}
+		return "-";
+		
 	}
 	
 	void print(){
@@ -84,7 +80,7 @@ class HashTable{
 			node* n = table[i];
 			while(n->next!=NULL){
 				n=n->next;
-				cout <<"(" << n->key << "," << n->value << ")";
+				cout <<" (" << n->key << "," << n->value << ")";
 			}
 			cout << endl;
 		}
@@ -107,7 +103,7 @@ int main(){
 			h.print();
 		}else if(s=='s'){
 			cin >> key;
-			h.search(key);
+			cout << h.search(key) << endl;
 		}else if(s=='e'){
 			break;
 		}
