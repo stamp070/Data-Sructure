@@ -27,6 +27,10 @@ class HashTable{
 	}
 	void add(int key,string value){
 		int index = key%size;
+		if(key<0){
+			cout << "please enter key more than 0!" << endl;
+			return;
+		}
 		
 		// check already have key
 		node* n = table[index];
@@ -44,7 +48,8 @@ class HashTable{
 			
 			cout << "key already exist" << endl;
 			return;
-		}else{
+		}
+		else{
 			
 			if(table[index]->key==-1){
 				table[index]->key = key;
