@@ -1,0 +1,150 @@
+#include <iostream>
+using namespace std;
+class node
+{
+public:
+    int data;
+    node *next;
+    node(int data)
+    {
+        this->data = data;
+        next = NULL;
+    }
+};
+class linkedlist
+{
+public:
+    node *head;
+    linkedlist()
+    {
+        head = NULL;
+    }
+    void insertafter(int value, int id)
+    {
+        if (head == NULL)
+        {
+            head = new node(value);
+            print();
+            return;
+        }
+        node *ptr = head;
+        node *n = new node(value);
+        while (ptr->next != NULL && ptr->data != id)
+        {
+            if (value == ptr->data)
+            {
+                return;
+            }
+            ptr = ptr->next;
+        }
+        if (ptr->next == NULL)
+        {
+            ptr->next = n;
+        }
+        else
+        {
+            n->next = ptr->next;
+            ptr->next = n;
+        }
+        print();
+    }
+    void insertbefore(int value, int id)
+    {
+        if (head == NULL)
+        {
+            head = new node(value);
+            print();
+            return;
+        }
+        node *ptr = head;
+        node *prev;
+        node *n = new node(value);
+        while (ptr != NULL && ptr->data != id)
+        {
+            if (value == ptr->data)
+            {
+                return;
+            }
+            prev = ptr;
+            ptr = ptr->next;
+        }
+        if (head->data == id)
+        {
+            n->next = head;
+            head = n;
+        }
+        else if (ptr == NULL)
+        {
+            prev->next = n;
+        }
+        else
+        {
+            n->next = prev->next;
+            prev->next = n;
+        }
+        print();
+    }
+    void deletenode(int id)
+    {
+        if (head == NULL)
+        {
+            cout << "linklist is empty" << endl;
+            return;
+        }
+        node *ptr = head;
+        node *prev;
+        while (ptr != NULL && ptr->data != id)
+        {
+            prev = ptr;
+            ptr = ptr->next;
+        }
+        if (ptr == head)
+        {
+            head = ptr->next;
+        }
+        else if (ptr != NULL)
+        {
+            prev->next = ptr->next;
+        }
+        print();
+    }
+    void print()
+    {
+        for (node *n = head; n != NULL; n = n->next)
+        {
+            cout << n->data << " ";
+        }
+        cout << endl;
+    }
+};
+int main()
+{
+    linkedlist l;
+    char s;
+    while (true)
+    {
+        cin >> s;
+        if (s == 'I')
+        {
+            int value, id;
+            cin >> value >> id;
+            l.insertbefore(value, id);
+        }
+        else if (s == 'A')
+        {
+            int value, id;
+            cin >> value >> id;
+            l.insertafter(value, id);
+        }
+        else if (s == 'D')
+        {
+            int id;
+            cin >> id;
+            l.deletenode(id);
+        }
+        else if (s == 'E')
+        {
+            break;
+        }
+    }
+}
