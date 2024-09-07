@@ -1,0 +1,125 @@
+#include <iostream>
+#define size 17
+using namespace std;
+class node
+{
+public:
+    int key;
+    string value;
+    node *next;
+    node()
+    {
+        key = -1;
+        value = "-";
+        next = NULL;
+    }
+    node(int k, string s)
+    {
+        key = k;
+        value = s;
+    }
+};
+class Hashtable
+{
+public:
+    node *table[size];
+    Hashtable()
+    {
+        for (int i = 0; i < size; i++)
+        {
+            table[i] = new node;
+        }
+    }
+    void add(int key, string val)
+    {
+        int index = key % size;
+        node *n = table[index];
+        while (n != NULL)
+        {
+            if (n->key == key)
+            {
+                cout << "key already exist" << endl;
+                return;
+            }
+            n = n->next;
+        }
+        if (table[index]->key == -1)
+        {
+            table[index] = new node(key, val);
+        }
+        else
+        {
+            n = table[index];
+            while (n->next != NULL)
+            {
+                n = n->next;
+            }
+            n->next = new node(key, val);
+        }
+    }
+    void print()
+    {
+        for (int i = 0; i < size; i++)
+        {
+            cout << "(" << table[i]->key << ", " << table[i]->value << ")";
+            node *n = table[i];
+            while (n->next != NULL)
+            {
+                n = n->next;
+                cout << "(" << n->key << ", " << n->value << ")";
+            }
+            cout << endl;
+        }
+    }
+    string search(int key)
+    {
+        int index = key % size;
+        node *n = table[index];
+
+        if (n->next == NULL && n->key == key)
+        {
+            return n->value;
+        }
+        else
+        {
+            while (n != NULL && n->key != key)
+            {
+                n = n->next;
+            }
+            if (n != NULL)
+            {
+                return n->value;
+            }
+        }
+        return "-";
+    }
+};
+int main()
+{
+    Hashtable h;
+    char s;
+    int key;
+    string value;
+    while (true)
+    {
+        cin >> s;
+        if (s == 'a')
+        {
+            cin >> key >> value;
+            h.add(key, value);
+        }
+        else if (s == 'p')
+        {
+            h.print();
+        }
+        else if (s == 's')
+        {
+            cin >> key;
+            cout << h.search(key) << endl;
+        }
+        else if (s == 'e')
+        {
+            break;
+        }
+    }
+}
