@@ -1,0 +1,37 @@
+#include <iostream>
+#include <stack>
+using namespace std;
+bool isalphabet(char x)
+{
+    return (x >= 'a' && x <= 'z') ||
+           (x >= 'A' && x <= 'Z');
+}
+bool isoperand(char x)
+{
+    return (x == '*') || (x == '/') ||
+           (x == '+') || (x == '-') ||
+           (x == '^');
+}
+int main()
+{
+    string s;
+    stack<string> stack;
+    cin >> s;
+    for (int i = 0; s[i] != '\0'; i++)
+    {
+        if (isalphabet(s[i]))
+        {
+            string alpha(1, s[i]);
+            stack.push(alpha);
+        }
+        else
+        {
+            string al1 = stack.top();
+            stack.pop();
+            string al2 = stack.top();
+            stack.pop();
+            stack.push("(" + al2 + s[i] + al1 + ")");
+        }
+    }
+    cout << stack.top();
+}
