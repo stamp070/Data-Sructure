@@ -139,23 +139,23 @@ node *deleteNode(node* root, int key){
     int balance = getbalance(root);
     
     // left left case
-    if(balance > 1 && getbalance(root) >=0){
+    if(balance > 1 && getbalance(root->left) >=0){
     	return rightRotate(root);
 	}
 	
 	// left right case
-	if(balance >1 && getbalance(root) < 0){
+	if(balance >1 && getbalance(root->left) < 0){
 		root->left = leftRotate(root->left); 
 		return rightRotate(root);
 	}
 	
 	// right right case
-	if(balance < -1 && getbalance(root)<=0){
+	if(balance < -1 && getbalance(root->right)<=0){
 		return leftRotate(root);
 	}
 	
 	// right left case
-	if(balance < -1 && getbalance(root) >0){
+	if(balance < -1 && getbalance(root->right) >0){
 		root->right = rightRotate(root->right);
 		return leftRotate(root);
 	}
