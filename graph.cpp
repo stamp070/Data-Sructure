@@ -71,7 +71,7 @@ int main(){
 		if(s=='e'){
 			cin >> x >> y >> w;
 			g.add_edge(x,y,w);
-			g.add_edge(y,x,w);
+			// g.add_edge(y,x,w); แล้วแต่ input
 		}else if(s=='s'){
 			while(true){
 				cin >> s;
