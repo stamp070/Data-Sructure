@@ -4,12 +4,12 @@
 using namespace std;
 class graph{
 	public:
-	int edges[50][50];
+	int edges[100][100];
 	int s_v;
 	graph(int n){
 		s_v = n;
-		for(int i=0;i<50;i++){
-			for(int j=0;j<50;j++){
+		for(int i=0;i<100;i++){
+			for(int j=0;j<100;j++){
 				edges[i][j] = 0;
 			}
 		}
@@ -18,7 +18,7 @@ class graph{
 		edges[x][y] = w;
 	}
 	void DFT(int start){
-		bool visited[50] = {false};
+		bool visited[100] = {false};
 		stack<int> stk;
 		stk.push(start);
 		
@@ -40,7 +40,7 @@ class graph{
         cout << endl;
 	}
 	void BFT(int start){
-		bool visited[50] = {false};
+		bool visited[100] = {false};
 		queue<int> q;
 		q.push(start);
 		visited[start] = true;
@@ -71,7 +71,7 @@ int main(){
 		if(s=='e'){
 			cin >> x >> y >> w;
 			g.add_edge(x,y,w);
-			// g.add_edge(y,x,w); แล้วแต่ input
+			
 		}else if(s=='s'){
 			while(true){
 				cin >> s;
