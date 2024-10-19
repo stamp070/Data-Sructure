@@ -56,16 +56,18 @@ public:
         {
             int node = s.top();
             s.pop();
+
             if (!visited[node])
             {
                 cout << node << " ";
                 visited[node] = true;
-            }
-            for (int i = 0; i < iter; i++)
-            {
-                if (arry[node][i] != 0 && !visited[i])
+
+                for (int i = maxnode - 1; i >= 0; i--)
                 {
-                    s.push(i);
+                    if (arry[node][i] != 0 && !visited[i])
+                    {
+                        s.push(i);
+                    }
                 }
             }
         }
