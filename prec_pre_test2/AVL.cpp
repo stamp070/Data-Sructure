@@ -100,6 +100,75 @@ public:
         }
         return root;
     }
+    node *successor(node *root)
+    {
+        if (root->left == NULL)
+            return root;
+        return successor(root->left);
+    }
+
+    node *Delete(node *root, int data)
+    {
+        if (data < root->data)
+        {
+            root->left = Delete(root->left, data);
+        }
+        else if (data > root->data)
+        {
+            root->right = Delete(root->right, data);
+        }
+        else
+        {
+            if (root->left == NULL && root->right == NULL)
+            {
+                delete root;
+                root = NULL;
+            }
+            else if (root->left != NULL && root->right == NULL)
+            {
+                node *temp = root;
+                root = root->left;
+                delete temp;
+            }
+            else if (root->right != NULL && root->left == NULL)
+            {
+                node *temp = root;
+                root = root->right;
+                delete temp;
+            }
+            else
+            {
+                node *temp = successor(root->right);
+                root->data = temp->data;
+                root->right = Delete(root->right, temp->data);
+            }
+            root->height = height(root);
+
+            // case LL
+            if (height(root->left) - height(root->right) > 1 && data < root->left->data)
+            {
+                return rotateright(root);
+            }
+            // case RR
+            if (height(root->right) - height(root->left) > 1 && data > root->right->data)
+            {
+                return rotateleft(root);
+            }
+            // case LR
+            if (height(root->left) - height(root->right) > 1 && data > root->left->data)
+            {
+                root->left = rotateleft(root->left);
+                return rotateright(root);
+            }
+            // case RL
+            if (height(root->right) - height(root->left) > 1 && data < root->right->data)
+            {
+                root->right = rotateright(root->right);
+                return rotateleft(root);
+            }
+        }
+        return root;
+    }
 
     void preorder(node *root)
     {
@@ -118,5 +187,9 @@ int main()
     t.root = t.insert(t.root, 40);
     t.root = t.insert(t.root, 50);
     t.root = t.insert(t.root, 25);
+
+    t.preorder(t.root);
+    cout << endl;
+    t.root = t.Delete(t.root, 30);
     t.preorder(t.root);
 }
