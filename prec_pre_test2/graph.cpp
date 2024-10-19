@@ -62,7 +62,7 @@ public:
                 cout << node << " ";
                 visited[node] = true;
 
-                for (int i = maxnode - 1; i >= 0; i--)
+                for (int i = iter - 1; i >= 0; i--)
                 {
                     if (arry[node][i] != 0 && !visited[i])
                     {
